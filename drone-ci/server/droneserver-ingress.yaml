@@ -1,18 +1,16 @@
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
-  name: drone-server
+  name: ingress-drone-ci
+  namespace: drone
   annotations:
-    kubernetes.io/ingress.class: "traefik"
-    traefik.ingress.kubernetes.io/frontend-entry-points: http,https
-    traefik.ingress.kubernetes.io/redirect-entry-point: https
-    traefik.ingress.kubernetes.io/redirect-permanent: "true"
+    kubernetes.io/ingress.class: "nginx"
 spec:
-  rules:
-  - host: drone.marceldempers.dev
-    http:
-      paths:
-      - backend:
-          serviceName: droneserver
-          servicePort: 80
-        path: /
+  rules: 
+    - host: drone.geek.zone 
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: droneserver 
+              servicePort: 80
